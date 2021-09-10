@@ -7,19 +7,15 @@ const {
   updateHero,
 } = require('../model/heroes');
 const HttpCode = require('../helpers/constatns');
-const UploadImages = require('../services/upload-avatars-local');
-require('dotenv').config();
-const IMAGES_OF_HEROES = process.env.IMAGES_OF_HEROES;
+
 
 const getAll = async (req, res, next) => {
   try {
-    // const { total, limit, page, heroes } = await listHeroes(req.query);
-    // const data = await listHeroes(req.query);
+
     const data = await listHeroes(req.query);
     return res.status(HttpCode.OK).json({
       status: 'success',
       code: HttpCode.OK,
-      // data: { total, limit, page, heroes },
       data: data,
     });
   } catch (error) {
@@ -55,7 +51,6 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const hero = await addHero({ ...req.body, images: req.files });
-    console.log(req.files);
     return res
       .status(HttpCode.CREATED)
       .json({ status: 'success', code: HttpCode.CREATED, data: { hero } });
