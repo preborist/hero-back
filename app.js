@@ -13,7 +13,7 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 require('dotenv').config();
 
 const IMAGES_OF_HEROES = process.env.IMAGES_OF_HEROES;
-app.use(express.static(path.join(__dirname, 'public', IMAGES_OF_HEROES)));
+app.use(express.static(path.join(__dirname, IMAGES_OF_HEROES)));
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());

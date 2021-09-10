@@ -19,8 +19,8 @@ const getHeroById = async heroId => {
   return result;
 };
 
-const addHero = async body => {
-  const result = await Hero.create(body);
+const addHero = async (body, files) => {
+  const result = await Hero.create(body, files);
   return result;
 };
 

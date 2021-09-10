@@ -7,7 +7,7 @@ class Upload {
     this.IMAGES_OF_HEROES = IMAGES_OF_HEROES;
   }
 
-  async transformAvatar(pathFile) {
+  async transformImage(pathFile) {
     const file = await Jimp.read(pathFile);
     await file
       .autocrop()
@@ -19,19 +19,19 @@ class Upload {
       .writeAsync(pathFile);
   }
 
-  async saveAvatarToStatic({ idUser, pathFile, name, oldFile }) {
-    await this.transformAvatar(pathFile);
-    const folderUserAvatar = path.join('public', this.IMAGES_OF_HEROES, idUser);
-    await createFolderIsNotExist(folderUserAvatar);
-    await fs.rename(pathFile, path.join(folderUserAvatar, name));
-    await this.deleteOldAvatar(
+  async saveImageToStatic({ idHero, pathFile, name, oldFile }) {
+    await this.transformImage(pathFile);
+    const folderHeroImages = path.join('public', this.IMAGES_OF_HEROES, idHero);
+    await createFolderIsNotExist(folderHeroImages);
+    await fs.rename(pathFile, path.join(folderHeroImages, name));
+    await this.deleteOldImage(
       path.join(process.cwd(), this.IMAGES_OF_HEROES, oldFile),
     );
-    const avatarURL = path.normalize(path.join(idUser, name));
-    return avatarURL;
+    const imageURL = path.normalize(path.join(idHero, name));
+    return imageURL;
   }
 
-  async deleteOldAvatar(pathFile) {
+  async deleteOldImage(pathFile) {
     try {
       await fs.unlink(pathFile);
     } catch (error) {
